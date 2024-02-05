@@ -5,7 +5,7 @@ pipeline {
 	stages {
 		stage ("Pulling the code from SCM") {
 			steps {
-				git branch: 'main', url: 'https://github.com/gouravaas/new_java_app.git'
+				git branch: 'main', credentialsId: 'Jenkins-Slave-ID', url: 'https://github.com/gouravaas/new_java_app.git'
 			}
 		}
 		stage ("Installing git") {
