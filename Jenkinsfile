@@ -8,6 +8,11 @@ pipeline {
 				git branch: 'main', url: 'https://github.com/gouravaas/new_java_app.git'
 			}
 		}
+		stage ("Installing git") {
+			steps {
+				sh 'sudo yum install -y git'
+			}
+		}
 		stage ("Build the code") {
 			steps {
 				sh 'sudo mvn dependency:purge-local-repository'
