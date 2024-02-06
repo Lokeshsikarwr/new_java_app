@@ -1,6 +1,6 @@
 pipeline {
 	agent {
-		label "Jenkins-Slave"
+		label "ubuntu-slave"
 	}
 	stages {
 		stage ("Pulling the code from SCM") {
