@@ -17,6 +17,7 @@ pipeline {
 		stage ("Testing the Build"){
 			steps {
 				sh 'sudo docker build -t java-app:$BUILD_TAG .'
+				sh 'sudo docker run -dit --name java_app -p 8080:8080 java-app:$BUILD_TAG'
 			}
 		}
 	}
