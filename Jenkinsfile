@@ -14,7 +14,7 @@ pipeline {
                                 sh 'sudo mvn clean package'
 			}
 		}
-		stage ("Testing the Build"){
+		stage ("Create docker image"){
 			steps {
 				sh 'sudo docker build -t java-app:$BUILD_TAG .'
 				sh 'sudo docker tag java-app:$BUILD_TAG gouravaas/java-app:$BUILD_TAG'
