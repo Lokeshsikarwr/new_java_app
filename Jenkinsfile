@@ -24,11 +24,14 @@ pipeline {
 			steps {
 				withCredentials([string(credentialsId: 'Docker_pass_ID', variable: 'docker_hub_pass_var')]) {
 					sh 'sudo docker login -u gouravaas -p ${docker_hub_pass_var}'
-					sh 'sudo docker push gouravaas/java-app:$BUILD_TAG' 
-    					
+					sh 'sudo docker push gouravaas/java-app:$BUILD_TAG' 		
 				}
 			}
 		}
+		stage ("Testing the Build"){
+			steps {
+				sh 'sudo docker run -dit --name java-test -p 8080:8080 gouravaas/java-app:$BUILD_TAG'
+			}
+		}
 	}
-
 }
