@@ -38,5 +38,13 @@ pipeline {
 				sh 'sudo curl --silent http://65.0.133.21:8080/java-web-app/'
 			}
 		}
+		stage ("Approval from QAT"){
+			steps {
+				script {
+					Boolean userInput = input(id: 'Proceed1', message: 'Do you want to Promote this build?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']])
+                				echo 'userInput: ' + userInput
+				}
+			}
+		}
 	}
 }
