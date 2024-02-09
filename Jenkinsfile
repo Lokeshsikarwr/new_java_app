@@ -30,12 +30,13 @@ pipeline {
 		}
 		stage ("Testing the Build"){
 			steps {
-				sh 'sudo docker run -dit --name java-test$BUILD_TAG -p 8082:8080 gouravaas/java-app:$BUILD_TAG'
+				sh 'sudo docker rm -f $(docker ps -a -q)
+				sh 'sudo docker run -dit --name java-test$BUILD_TAG -p 8080:8080 gouravaas/java-app:$BUILD_TAG'
 			}
 		}
 		stage ("QAT Testing"){
 			steps {
-				sh 'sudo curl --silent http://13.235.128.80:8082/java-web-app/ | grep -i "india"'
+				sh 'sudo curl --silent http://13.235.128.80:8080/java-web-app/ | grep -i "india"'
 			}
 		}
 		stage ("Approval from QAT"){
