@@ -35,7 +35,7 @@ pipeline {
 		}
 		stage ("QAT Testing"){
 			steps {
-				sh 'sudo curl --silent http://13.235.128.80:8082/java-web-app/'
+				sh 'sudo curl --silent http://13.235.128.80:8082/java-web-app/ | grep -i "india"'
 			}
 		}
 		stage ("Approval from QAT"){
