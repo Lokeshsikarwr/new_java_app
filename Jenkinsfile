@@ -30,7 +30,6 @@ pipeline {
 		}
 		stage ("Testing the Build"){
 			steps {
-				sh 'sudo docker rm -f $(docker ps -a -q)'
 				sh 'sudo docker run -dit --name java-test$BUILD_TAG -p 8080:8080 gouravaas/java-app:$BUILD_TAG'
 			}
 		}
