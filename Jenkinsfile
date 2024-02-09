@@ -30,12 +30,12 @@ pipeline {
 		}
 		stage ("Testing the Build"){
 			steps {
-				sh 'sudo docker run -dit --name java-test$BUILD_TAG -p 8081:8080 gouravaas/java-app:$BUILD_TAG'
+				sh 'sudo docker run -dit --name java-test$BUILD_TAG -p 8082:8080 gouravaas/java-app:$BUILD_TAG'
 			}
 		}
 		stage ("QAT Testing"){
 			steps {
-				sh 'sudo curl --silent http://65.0.133.21:8080/java-web-app/'
+				sh 'sudo curl --silent http://13.235.128.80:8082/java-web-app/'
 			}
 		}
 		stage ("Approval from QAT"){
@@ -43,6 +43,13 @@ pipeline {
 				script {
 					Boolean userInput = input(id: 'Proceed1', message: 'Do you want to Promote this build?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']])
                 				echo 'userInput: ' + userInput
+				}
+			}
+		}
+		stage ("Prod ENV"){
+			steps{
+				sshagent(credentials:['sshagent-cred']) {
+			    	 	sh "ssh -o StrictHostKeyChecking=no ubuntu@13.215.193.66 sudo docker run  -dit  -p  :8080  gouravaas/java-app:$BUILD_TAG"
 				}
 			}
 		}
