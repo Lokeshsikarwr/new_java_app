@@ -35,7 +35,11 @@ pipeline {
 		}
 		stage ("QAT Testing"){
 			steps {
-				sh 'sudo curl --silent http://3.109.152.252:8080/java-web-app/ | grep -i -E (india|sr)'
+				retry(5) {
+					script {
+						sh 'sudo curl --silent http://3.109.152.252:8080/java-web-app/ | grep -i -E "(india|sr)"'
+					}
+				}
 			}
 		}
 		stage ("Approval from QAT"){
