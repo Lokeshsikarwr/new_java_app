@@ -35,7 +35,7 @@ pipeline {
 		}
 		stage ("QAT Testing"){
 			steps {
-				sh 'sudo curl --silent http://13.235.128.80:8080/java-web-app/ | grep -i "india"'
+				sh 'sudo curl --silent http://3.109.152.252:8080/java-web-app/ | grep -i -E (india|sr)'
 			}
 		}
 		stage ("Approval from QAT"){
@@ -49,7 +49,7 @@ pipeline {
 		stage ("Prod ENV"){
 			steps{
 				sshagent(credentials:['sshagent-cred']) {
-			    	 	sh "ssh -o StrictHostKeyChecking=no ubuntu@13.215.193.66 sudo docker run  -dit  -p  :8080  gouravaas/java-app:$BUILD_TAG"
+			    	 	sh "ssh -o StrictHostKeyChecking=no ubuntu@54.169.63.123 sudo docker run  -dit  -p  :8080  gouravaas/java-app:$BUILD_TAG"
 				}
 			}
 		}
