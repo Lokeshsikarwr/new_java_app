@@ -20,4 +20,6 @@ pipeline {
                                 sh 'sudo docker tag java-app:$BUILD_TAG gouravaas/java-app:$BUILD_TAG'
                         }
                 }
+	}
+}
 
